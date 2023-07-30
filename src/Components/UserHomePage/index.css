@@ -1,0 +1,8 @@
+.user-home-main-container{
+    height: 100vh;
+    display: flex;
+}
+.accounts-dashboard-container{
+    width: 80vw;
+    background-color: #02969C;
+}

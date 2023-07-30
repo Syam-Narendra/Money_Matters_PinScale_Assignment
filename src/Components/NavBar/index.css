@@ -1,0 +1,66 @@
+.title-profile-container{
+    width: 20vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.money-text-class{
+    color: #F89A23;
+}
+.matter-text-class{
+    color: #02969C;
+}
+.heading-section{
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+}
+.nav-item-button{
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    cursor:pointer;
+}
+.fa-solid{
+    font-size: 20px;
+    margin-right: 10px;
+}
+.active-tab{
+    color: var(--primary-3, #2D60FF);
+    border-left: 5px solid #2D60FF;
+}
+
+.avatar{
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+}
+.bottom-profile-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.name-email{
+    margin: 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.bottom-email-logout{
+    display: flex;
+    align-items: center;
+}
+.user-name{
+    margin: 0%;
+}
+.logout-button{
+    border: none;
+    cursor: pointer;
+}
