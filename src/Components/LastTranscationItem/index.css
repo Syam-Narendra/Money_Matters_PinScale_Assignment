@@ -1,0 +1,78 @@
+.transcation-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.transcation-name{
+    width: 350px;
+    display: flex;
+    justify-content: flex-start;
+    color: #505887;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.transcation-icon{
+    width: 50px;
+    display: flex;
+    justify-content: flex-start;
+}
+.transcation-category{
+    width: 100px;
+    display: flex;
+    justify-content: flex-start;
+    color: #718EBF;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.debit-icon{
+    color: red;
+    font-size: 30px;
+}
+.credit-icon{
+    font-size: 30px;
+    color: green;
+}
+
+.transcation-date{
+    color: #718EBF;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.debit-transcation-amount{
+    color: #FE5C73;
+    text-align: right;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+.credit-transcation-amount{
+    color: #16DBAA;
+    text-align: right;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.transcation-amount{
+    width: 80px;
+    display: flex;
+    justify-content: flex-start;
+}

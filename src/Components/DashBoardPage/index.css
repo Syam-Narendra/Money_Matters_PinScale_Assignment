@@ -1,0 +1,97 @@
+.accounts-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+}
+.empty-trans-heading{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.dashboard-home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    height: 100vh;
+}
+.add-transcation-button{
+    display: flex;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 12px;
+    background: #2D60FF;
+    border: none;
+    color: white;
+}
+
+.accounts-heading{
+    color: #343C6A;
+    font-family: Inter;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.credit-debit-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+.details-card{
+    background-color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 30em;
+    margin: 10px;
+    border-radius: 25px;
+}
+
+.credit-amount{
+    color: #16DBAA;
+    font-family: Inter;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.credit-heading{
+    color: #718EBF;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.debit-amount{
+    color: #FE5C73;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.last-transcation{
+    color: #333B69;
+    font-family: Inter;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.last-transcation-items{
+    /* background-color: aqua; */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+}

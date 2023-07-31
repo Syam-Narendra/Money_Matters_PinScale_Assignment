@@ -10,6 +10,55 @@
     justify-content: center;
     align-items: center;
 }
+.logout-popup{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: rgba(52, 64, 84, 0.70);
+    backdrop-filter: blur(8px);
+}
+.logut-buttons-sections{
+    background-color: white;
+    padding: 10px;
+    flex-direction: column;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+.pop-up-logout{
+    display: flex;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    background: #DC2626;
+}
+
+.pop-up-buttons{
+    display: flex;
+}
+.confirm-logout-icon{
+    background-color: #FDE68A;
+    color: #D97706;
+    border-radius: 8px;
+    font-size: 40px !important;
+}
+.pop-up-cancel-button{
+    margin-left: 10px;
+    display: flex;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    border: 1px solid #CBD5E1;
+    background: #FFF;
+}
+
 .money-text-class{
     color: #F89A23;
 }

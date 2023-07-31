@@ -12,23 +12,27 @@ class  Login extends Component{
         event.preventDefault();
         this.setState({isLoading: true,showError:false});
         const {email, password} = this.state;
-        const url = `https://bursting-gelding-24.hasura.app/api/rest/get-user-id?email=${email}&password=${password}`;
-        const options = {
-            method: 'GET',
-            headers:  {
-                'content-type': 'application/json',
-                'x-hasura-admin-secret': 'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF'
-            }
-        };
+        try{
+            const url = `https://bursting-gelding-24.hasura.app/api/rest/get-user-id?email=${email}&password=${password}`;
+            const options = {
+                method: 'POST',
+                headers:  {
+                    'content-type': 'application/json',
+                    'x-hasura-admin-secret': 'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF'
+                }
+            };
 
-        const response = await fetch(url, options)
-        const data = await response.json();
-        if (data.get_user_id.length===1){
-            const id = data.get_user_id[0].id
-            Cookies.set("user_id", id, { expires: 365 })
-            window.location.reload()
-        }
-        else{
+            const response = await fetch(url, options)
+            const data = await response.json();
+            if (data.get_user_id.length===1){
+                const id = data.get_user_id[0].id
+                Cookies.set("user_id", id, { expires: 365 })
+                window.location.reload()
+            }
+            else{
+                this.setState({isLoading: false,showError:true})
+            }
+        }catch(error){
             this.setState({isLoading: false,showError:true})
         }
         

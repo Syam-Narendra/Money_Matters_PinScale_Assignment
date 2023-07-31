@@ -1,25 +1,48 @@
 import {Component} from "react"
 import Cookies from "js-cookie"
+import { TailSpin } from "react-loader-spinner"
+import Modal from 'react-modal';
 import "./index.css"
 
 
 const NavItem = (props) =>{
-    const {data,activeTabClassName} = props;
-    const {name,icon_pack,function_name} = data
+    const {data,activeTabClassName,changeTab} = props;
+    const {id,name,icon_pack} = data
     const activeCLass= activeTabClassName ? "active-tab":""
+    const onClickTab=()=>{
+        changeTab(id)
+    }
     return(
-        <button onClick={function_name} className={`nav-item-button ${activeCLass}`}>
+        <button onClick={onClickTab} className={`nav-item-button ${activeCLass}`}>
             <i class={icon_pack}></i>
             <h1>{name}</h1>
         </button>
     )
-
 }
+
+const navItemsData = [
+    {
+    id:"dashboard",
+    name:"Dashboard",
+    icon_pack:"fa-solid fa-house",
+    },
+    {
+        id:"transcation",
+        name:"Transcations",
+        icon_pack:"fa-solid fa-money-bill-transfer",
+    },
+    {
+        id:"profile",
+        name:"Profile",
+        icon_pack:"fa-solid fa-user",
+    }
+
+]
 
 
 class NavBar extends Component{
 
-    state = {userData:[]}
+    state = {userData:[],isLoading:true,showPopUp:false};
 
     fetchUserData= async(userId)=>{
         const apiUrl = 'https://bursting-gelding-24.hasura.app/api/rest/profile';
@@ -35,7 +58,7 @@ class NavBar extends Component{
         };
         const response = await fetch(apiUrl, requestOptions)
         const data = await response.json()
-        this.setState({userData:data.users[0]})
+        this.setState({userData:data.users[0],isLoading:false});
     }
     
     componentDidMount(){
@@ -44,34 +67,52 @@ class NavBar extends Component{
     }
 
     onClickLogout=()=>{
+        this.setState({showPopUp:true})
+    }
+
+    onClickConfirmLogout=()=>{
         Cookies.remove("user_id")
         window.location.reload()
     }
 
-    render(){
-        const {setDashBoard,setProfile,setTranscation,activeTab} = this.props
-        const {userData} = this.state
+    closePopUp=()=>{
+        this.setState({showPopUp:false})
+    }
+
+    navBarProfileSection = ()=> {
+        const {userData,showPopUp} = this.state
         const {name,email}= userData
-        const navItemsData = [
-            {
-            id:"dashboard",
-            name:"Dashboard",
-            icon_pack:"fa-solid fa-house",
-            function_name:setDashBoard},
-            {
-                id:"transcation",
-                name:"Transcations",
-                icon_pack:"fa-solid fa-money-bill-transfer",
-                function_name:setTranscation
-            },
-            {
-                id:"profile",
-                name:"Profile",
-                icon_pack:"fa-solid fa-user",
-                function_name:setProfile
-            }
-        
-        ]
+        return(
+        <>
+            <Modal className="logout-popup" isOpen={showPopUp} onRequestClose={this.closePopUp} contentLabel="Example Modal">
+                <div className="logut-buttons-sections">
+                    <i class="confirm-logout-icon fa-solid fa-right-from-bracket"></i>
+                    <h2>Are You Sure To Want To Logout?</h2>
+                <div className="pop-up-buttons">
+                    <button className="pop-up-logout" onClick={this.onClickConfirmLogout}>Yes, Logout</button>
+                    <button className="pop-up-cancel-button" onClick={this.closePopUp}>Cancel</button>
+                </div>
+                </div>
+            </Modal>
+            <img src="https://i.ibb.co/wBzWWN3/avatar.jpg" className='avatar' alt="avatar"/>
+            <div className='name-email'>
+                <h1 className='user-name'>{name}</h1>
+                <div className='bottom-email-logout'>
+                    <p>{email}</p>
+                    <button onClick={this.onClickLogout} className='logout-button'>
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </>
+        )
+    }
+
+    renderLoader=()=> <TailSpin height={40} color="#F89A23"/>
+
+    render(){
+        const {changeTab,activeTabId} = this.props
+        const {isLoading} = this.state
         return(
             <div className="title-profile-container">
                 <div>
@@ -83,22 +124,13 @@ class NavBar extends Component{
                 <div className="heading-section">
                     {
                         navItemsData.map(item=>(
-                            <NavItem key={item.id} data={item} activeTabClassName={activeTab===item.id}/>
+                            <NavItem key={item.id} data={item} changeTab={changeTab} activeTabClassName={activeTabId===item.id}/>
                         ))
                     }
                 </div>
                 </div>
                 <div className='bottom-profile-section'>
-                    <img src="https://i.ibb.co/wBzWWN3/avatar.jpg" className='avatar' alt="avatar"/>
-                    <div className='name-email'>
-                        <h1 className='user-name'>{name}</h1>
-                        <div className='bottom-email-logout'>
-                        <p>{email}</p>
-                        <button onClick={this.onClickLogout} className='logout-button'>
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        </button>
-                        </div>
-                    </div>
+                    {isLoading ? this.renderLoader() : this.navBarProfileSection()}
                 </div>
             </div>
         )
