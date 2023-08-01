@@ -76,3 +76,7 @@
     display: flex;
     justify-content: flex-start;
 }
+.delete-button{
+    border: none;
+    color: #FE5C73;
+}

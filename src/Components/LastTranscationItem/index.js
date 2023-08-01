@@ -1,8 +1,30 @@
+import Modal from "react-modal"
+import {Component} from "react"
 import "./index.css"
 
-const LastTranscationItem = (props) =>{
-    const {transcation} = props
-    const {amount,category,date,id,transaction_name,type,user_id} = transcation
+class LastTranscationItem extends Component{
+
+    state ={showPopUp:false}
+
+    onClickDelete=()=>{
+        this.setState({showPopUp:true})
+    }
+
+    denyDelete=()=>{
+        this.setState({showPopUp:false})
+    }
+
+    onClickConfirmDelete=()=>{
+        const {deleteTranscation,transcation}=this.props
+        const {id}=transcation
+        this.setState({showPopUp:false})
+        deleteTranscation(id)
+    }
+
+    render() {
+    const {showPopUp} = this.state
+    const {transcation} = this.props
+    const {amount,category,date,transaction_name,type} = transcation
     const options = {
         month: 'long',
         day: 'numeric',
@@ -23,9 +45,21 @@ const LastTranscationItem = (props) =>{
         <p className="transcation-category">{categoryName}</p>
         <p className="transcation-date">{formattedDate}</p>
         <p className={`transcation-amount ${amountClassName}`}>{currencySymbol}${amount}</p>
+        <button onClick={this.onClickDelete} className="delete-button"><i class="fa-solid fa-trash-can"></i></button>
+        <Modal className="logout-popup" isOpen={showPopUp} onRequestClose={this.denyDelete}>
+                <div className="logut-buttons-sections">
+                    <i className="confirm-logout-icon fa-solid fa-triangle-exclamation"></i>
+                    <h2>Are You Sure To Want To Delete?</h2>
+                <div className="pop-up-buttons">
+                    <button className="pop-up-logout" onClick={this.onClickConfirmDelete}>Yes, Delete</button>
+                    <button className="pop-up-cancel-button" onClick={this.denyDelete}>No,Leave it</button>
+                </div>
+                </div>
+        </Modal>
 
     </div>
     )
+}
 }
 
 export default LastTranscationItem

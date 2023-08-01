@@ -84,7 +84,7 @@ class NavBar extends Component{
         const {name,email}= userData
         return(
         <>
-            <Modal className="logout-popup" isOpen={showPopUp} onRequestClose={this.closePopUp} contentLabel="Example Modal">
+            <Modal className="logout-popup" isOpen={showPopUp} onRequestClose={this.closePopUp}>
                 <div className="logut-buttons-sections">
                     <i class="confirm-logout-icon fa-solid fa-right-from-bracket"></i>
                     <h2>Are You Sure To Want To Logout?</h2>

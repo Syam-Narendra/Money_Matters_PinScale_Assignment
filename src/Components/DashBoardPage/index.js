@@ -3,6 +3,7 @@ import Cookies from "js-cookie"
 import "./index.css"
 import LastTranscationItem from "../LastTranscationItem/index"
 import { TailSpin } from "react-loader-spinner"
+import deleteTranscation from "../deleteTransaction"
 
 const pageStatusData ={
     loading:"loading",
@@ -11,8 +12,14 @@ const pageStatusData ={
     noData:"noData",
 }
 
-class DashBoard extends Component {
+export class DashBoard extends Component {
     state = {creditAmount: 0,debitAmount: 0,lastTranscations:[],pageStatus:pageStatusData.loading}
+
+    callDeleteTranscation= async TransId=>{
+        this.setState({pageStatus:pageStatusData.loading})
+        await deleteTranscation(TransId)
+        window.location.reload()
+    }
 
     getCreditDebitAmount= async id=>{
         try{
@@ -119,7 +126,7 @@ class DashBoard extends Component {
             <div className="last-transcation-items">
             {lastTranscations.map(transcation=>{
                 return(
-                    <LastTranscationItem key={transcation.id} transcation={transcation}/>
+                    <LastTranscationItem key={transcation.id} deleteTranscation={this.callDeleteTranscation} transcation={transcation}/>
                     )
                 })
             }
@@ -146,7 +153,6 @@ class DashBoard extends Component {
     }
 
     render(){
-        const {isLoading} = this.state;
         return(
         <>
             {this.renderSwitch()}
@@ -154,5 +160,3 @@ class DashBoard extends Component {
         )
     }
 }
-
-export default DashBoard

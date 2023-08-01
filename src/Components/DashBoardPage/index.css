@@ -7,6 +7,7 @@
 }
 .empty-trans-heading{
     width: 100%;
+    color: #FE5C73;
     display: flex;
     justify-content: center;
 }

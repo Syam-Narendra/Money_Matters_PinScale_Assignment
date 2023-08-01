@@ -2,7 +2,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import "./index.css"
 import {Component} from "react";
 import NavBar from "../NavBar/index"
-import DashBoard from "../DashBoardPage/index"
+import {DashBoard} from "../DashBoardPage/index"
 import Profile from "../ProfilePage/index"
 import Transcation from "../TranscationPage/index"
 
