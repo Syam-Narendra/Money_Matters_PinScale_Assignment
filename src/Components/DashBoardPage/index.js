@@ -4,6 +4,7 @@ import "./index.css"
 import LastTranscationItem from "../LastTranscationItem/index"
 import { TailSpin } from "react-loader-spinner"
 import deleteTranscation from "../deleteTransaction"
+import Modal from "react-modal"
 
 const pageStatusData ={
     loading:"loading",
@@ -13,7 +14,9 @@ const pageStatusData ={
 }
 
 export class DashBoard extends Component {
-    state = {creditAmount: 0,debitAmount: 0,lastTranscations:[],pageStatus:pageStatusData.loading}
+    state = {creditAmount: 0,debitAmount: 0,lastTranscations:[],pageStatus:pageStatusData.loading,showAddTrans:false,showConfirmPopup:false,
+    addTransName:"",addTransType:"",addCategory:"",addAmount:0,addDate:""
+    }
 
     callDeleteTranscation= async TransId=>{
         this.setState({pageStatus:pageStatusData.loading})
@@ -88,13 +91,84 @@ export class DashBoard extends Component {
         this.getLastTransaction(id)
     }
 
+    onClickAddTrans=()=>{
+        this.setState({showAddTrans:true})
+    }
+    closeAddTransPopup=()=>{
+        this.setState({showAddTrans:false})
+    }
+
+    confirmAddTranscation=async event=>{
+        event.preventDefault()
+        const {addTransName,addAmount,addCategory,addDate,addTransType}= this.state
+        const apiUrl = 'https://bursting-gelding-24.hasura.app/api/rest/add-transaction';
+        const headers = {
+        'content-type': 'application/json',
+        "x-hasura-role":"user",
+        "x-hasura-user-id":Cookies.get("user_id"),
+        'x-hasura-admin-secret': 'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF'
+        };
+
+        const addData={
+            "name": addTransName,
+            "type": addTransType,
+            "category": addCategory,
+            "amount": addAmount,
+            "date": addDate,
+            "user_id": Cookies.get("user_id"),
+        }
+
+        const requestOptions = {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(addData)
+        };
+
+        await fetch(apiUrl, requestOptions)
+        this.closeAddTransPopup()
+        this.setState({showConfirmPopup:true})
+    }
+
     renderCreditDebitAmounts=()=>{
-        const {creditAmount,debitAmount,}= this.state
+        const {creditAmount,debitAmount,showConfirmPopup}= this.state
         return(
             <>
             <div className="accounts-header">
                 <h1 className="accounts-heading">Accounts</h1>
-                <button className="add-transcation-button">+ Add Transcation</button>
+                <button onClick={this.onClickAddTrans} className="add-transcation-button">+ Add Transcation</button>
+                <Modal className="logout-popup" isOpen={showConfirmPopup}>
+                    <div className="add-transcation-success-popup">
+                        <h1 className="add-transcation-success-message">Transaction Added Successfully</h1>
+                        <button className="add-transcation-button" onClick={()=> {this.setState({showConfirmPopup:false}); window.location.reload()}}>Close</button>
+                    </div>
+                </Modal>
+                <Modal className="logout-popup transaction-popup" isOpen={this.state.showAddTrans}>
+                    <form onSubmit={this.confirmAddTranscation} className="modal-elements">
+                        <div className="add-close-head">
+                        <h1 className="add-trans-heading">Add Transaction</h1>
+                        <button className="close-popup" onClick={this.closeAddTransPopup}>X</button>
+                        </div>
+                    <h2 className="trans-type-head">Transaction Name</h2>
+                    <input onChange={(e)=> this.setState({addTransName:e.target.value})} type="text" placeholder="Enter Transaction Name" className="add-transcation-input"/>
+                    <h2 className="trans-type-head">Transaction Type</h2>
+                    <select onChange={(e)=> this.setState({addTransType:e.target.value})} className="add-transcation-input">
+                        <option value="credit">Credit</option>
+                        <option value="debit">Debit</option>
+                    </select>
+                    <h2 className="trans-type-head">Category</h2>
+                    <select onChange={(e)=> this.setState({addCategory:e.target.value})} className="add-transcation-input">
+                        <option value="food">Food</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="travel">Travel</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <h2 className="trans-type-head">Amount</h2>
+                    <input onChange={(e)=> this.setState({addAmount:e.target.value})} type="number" placeholder="Enter Amount" className="add-transcation-input"/>
+                    <h2 className="trans-type-head">Date</h2>
+                    <input onChange={(e)=> this.setState({addDate:e.target.value})} type="date" placeholder="Enter Date" className="add-transcation-input"/>
+                    <button className="add-transcation-button" type="submit">Add Transaction</button>
+                    </form>
+                </Modal>
             </div>
             <div className="credit-debit-container">
                 <div className="details-card">

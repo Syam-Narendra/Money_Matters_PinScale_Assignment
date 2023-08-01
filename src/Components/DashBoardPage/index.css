@@ -96,3 +96,69 @@
     align-items: center;
     margin: 15px;
 }
+.transaction-popup{
+    display: flex;
+    flex-direction: column;
+}
+.modal-elements{
+    background-color: white;
+    padding: 30px;
+    width: 30em;
+    border-radius: 10px;
+}
+.add-close-head{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.add-trans-heading{
+    color: #333B69;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+.trans-type-head{
+    color: #505887;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.add-transcation-input{
+    width: 418px;
+    height: 50px;
+    border-radius: 15px;
+    border: 2px solid #DFEAF2;
+    background: #FFF;
+    color: #718EBF;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.close-popup{
+    color: #718EBF;
+    border: none;
+    background-color: transparent;
+}
+.add-transcation-success-popup{
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+}
+.add-transcation-success-message{
+    color: #02969C;;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
