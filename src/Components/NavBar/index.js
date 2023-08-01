@@ -39,12 +39,19 @@ const navItemsData = [
 
 ]
 
+const profilePicSatusData={
+    success:"success",
+    loading:"loading",
+    error:"error"
+}
+
 
 class NavBar extends Component{
 
-    state = {userData:[],isLoading:true,showPopUp:false};
+    state = {userData:[],profilePicStatus:profilePicSatusData.loading,showPopUp:false};
 
     fetchUserData= async(userId)=>{
+        try{
         const apiUrl = 'https://bursting-gelding-24.hasura.app/api/rest/profile';
         const headers = {
         'content-type': 'application/json',
@@ -58,7 +65,10 @@ class NavBar extends Component{
         };
         const response = await fetch(apiUrl, requestOptions)
         const data = await response.json()
-        this.setState({userData:data.users[0],isLoading:false});
+        this.setState({userData:data.users[0],profilePicStatus:profilePicSatusData.success});
+    }catch(e){
+        this.setState({profilePicStatus:profilePicSatusData.error});
+    }
     }
     
     componentDidMount(){
@@ -110,9 +120,20 @@ class NavBar extends Component{
 
     renderLoader=()=> <TailSpin height={40} color="#F89A23"/>
 
+    renderSwitch=()=>{
+        const {profilePicStatus}= this.state
+        switch(profilePicStatus){
+            case profilePicSatusData.loading:
+                return this.renderLoader()
+            case profilePicSatusData.success:
+                return this.navBarProfileSection()
+            default:
+                return <i class="fa-solid fa-triangle-exclamation"></i>
+        }
+    }
+
     render(){
         const {changeTab,activeTabId} = this.props
-        const {isLoading} = this.state
         return(
             <div className="title-profile-container">
                 <div>
@@ -130,7 +151,7 @@ class NavBar extends Component{
                 </div>
                 </div>
                 <div className='bottom-profile-section'>
-                    {isLoading ? this.renderLoader() : this.navBarProfileSection()}
+                    {this.renderSwitch()}
                 </div>
             </div>
         )

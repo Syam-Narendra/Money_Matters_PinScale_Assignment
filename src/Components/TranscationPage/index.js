@@ -4,7 +4,6 @@ import LastTranscationItem from "../LastTranscationItem/index"
 import deleteTranscation from "../deleteTransaction"
 import Cookies from "js-cookie"
 import {TailSpin} from "react-loader-spinner"
-// import {renderEmptyTranscations} from "../DashBoardPage/index"
 const transactionTypeButtons =[
     {
         id:1,
@@ -47,6 +46,7 @@ class Transcation extends Component {
     state={activeTransButton:transactionTypeButtons[0].type,allTranscationsData:[],pageStatus:pageStatusData.loading}
 
     getAllTransactions=async()=>{
+        try{
         const apiUrl = "https://bursting-gelding-24.hasura.app/api/rest/all-transactions?limit=50&offset=0"
         const headers = {
             'content-type': 'application/json',
@@ -69,6 +69,9 @@ class Transcation extends Component {
             this.setState({allTranscationsData:data.transactions,pageStatus:pageStatusData.success})
             console.log(data.transactions)
         }
+    }catch(e){
+        this.setState({pageStatus:pageStatusData.error})
+    }
 }
 
     componentDidMount(){
@@ -112,7 +115,7 @@ class Transcation extends Component {
             case pageStatusData.noData:
                 return <h1 className="empty-trans-heading">No Transactions Found</h1>
             default:
-                <h1>Error</h1>
+                return <h1 className="error-loading">Something Went Wrong</h1>
         }
     }
 
