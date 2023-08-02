@@ -67,6 +67,7 @@
 }
 .heading-section{
     display: flex;
+    flex-wrap: wrap;
     padding: 10px;
     flex-direction: column;
 }
